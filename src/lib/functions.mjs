@@ -2,36 +2,44 @@ import shell from 'shelljs'
 import { Changelog, Release } from 'keep-a-changelog'
 
 const getFirstCommit = () => {
-  let { stdout: firstCommit } = shell
-    .exec('git rev-list --max-parents=0 HEAD', {
+  let { stdout: firstCommit } = shell.exec(
+    'git rev-list --max-parents=0 HEAD',
+    {
       silent: true
-    })
+    }
+  )
 
   firstCommit = firstCommit.replace(/\r?\n|\r/, '')
   return firstCommit
 }
 
 const getTagDates = () => {
-  const { stdout: tagsString } = shell
-    .exec('git for-each-ref --sort=v:refname --format "%(creatordate:iso)" refs/tags', {
+  const { stdout: tagsString } = shell.exec(
+    'git for-each-ref --sort=v:refname --format "%(creatordate:iso)" refs/tags',
+    {
       silent: true
-    })
+    }
+  )
   return tagsString.split('\n').filter((tag) => tag.length)
 }
 
 const getTags = () => {
-  const { stdout: tagsString } = shell
-    .exec('git for-each-ref --sort=v:refname --format "%(refname:strip=2)" refs/tags', {
+  const { stdout: tagsString } = shell.exec(
+    'git for-each-ref --sort=v:refname --format "%(refname:strip=2)" refs/tags',
+    {
       silent: true
-    })
+    }
+  )
   return tagsString.split('\n').filter((tag) => tag.length)
 }
 
-const getCommits = branch => {
-  const { stdout: commits } = shell
-    .exec(`git --no-pager log --pretty='@commitchange@%n%B%-C()%n' ${branch}`, {
+const getCommits = (branch) => {
+  const { stdout: commits } = shell.exec(
+    `git --no-pager log --pretty='@commitchange@%n%B%-C()%n' ${branch}`,
+    {
       silent: true
-    })
+    }
+  )
 
   return commits.split('@commitchange@')
 }
@@ -86,12 +94,13 @@ const addTagToChangelog = (changelog, tag) => {
 
   // console.log({tag,commits})
 
-  const release = new Release(tag.replace(/^v/, ''), getTagDates()[targetTagIndex])
+  const release = new Release(
+    tag.replace(/^v/, ''),
+    getTagDates()[targetTagIndex]
+  )
   appendReleaseFromCommits(release, commits)
 
-  changelog.addRelease(
-    release
-  )
+  changelog.addRelease(release)
 }
 
 const createUnreleasedRelease = () => {
@@ -106,7 +115,8 @@ const createUnreleasedRelease = () => {
   return unreleased
 }
 
-const getReleaseChangesCount = unreleased => Array.from(unreleased.changes.values()).flat().length
+const getReleaseChangesCount = (unreleased) =>
+  Array.from(unreleased.changes.values()).flat().length
 
 const addUnreleasedToChangelog = (changelog) => {
   const unreleased = createUnreleasedRelease()
@@ -115,9 +125,7 @@ const addUnreleasedToChangelog = (changelog) => {
     return
   }
 
-  changelog.addRelease(
-    unreleased
-  )
+  changelog.addRelease(unreleased)
 }
 
 function createChangelog (title, url = '', footer = '') {
@@ -131,6 +139,19 @@ function createChangelog (title, url = '', footer = '') {
   return changelog
 }
 
+const generateChangelogForTag = (tag, title, url, footer) => {
+  const tags = getTags()
+
+  if (!tags.includes(tag)) {
+    console.log(`${tag} doest exists. Try one of these: ${tags.join(', ')}`)
+    process.exit(1)
+  }
+
+  const changelog = createChangelog(title, url, footer)
+  addTagToChangelog(changelog, tag)
+
+  return changelog
+}
 const generateFullChangelog = (title, url = '', footer = '') => {
   const changelog = createChangelog(title, url, footer)
 
@@ -151,5 +172,7 @@ export {
   addTagToChangelog,
   appendReleaseFromCommits,
   getTagDates,
-  getTags, getReleaseChangesCount
+  getTags,
+  getReleaseChangesCount,
+  generateChangelogForTag
 }

@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { program } from 'commander'
 import { readFile } from 'fs/promises'
 
@@ -20,6 +22,6 @@ program
     'unreleased',
     'Display markdown from the unreleased changelog entries'
   )
-  .command('released', 'Display markdown a specific tag')
+  .command('tag', 'Display markdown a specific tag')
 
 program.parse(process.argv)
