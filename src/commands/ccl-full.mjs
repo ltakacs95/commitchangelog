@@ -3,8 +3,8 @@ import { generateFullChangelog } from '../lib/functions.mjs'
 
 const program = new Command()
 program
-  .argument('<title>', 'The title on top of the CHANGELOG.')
-  .argument('[url]', 'URL used for linking to compare links and tags.')
+  .argument('[title]', 'The title on top of the CHANGELOG.', 'CHANGELOG')
+  .argument('[url]', 'URL used for linking to compare links and tags.', '')
   .argument('[footer]', 'Additional text to be displayed at the bottom of the changelog.', '')
 
 program.exitOverride((err) => {
