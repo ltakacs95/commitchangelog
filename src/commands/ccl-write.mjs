@@ -4,7 +4,7 @@ import fs from 'fs'
 
 const program = new Command()
 program
-  .argument('<title>', 'The title on top of the CHANGELOG')
+  .argument('[title]', 'The title on top of the CHANGELOG', 'CHANGELOG')
   .argument('[file]', 'Path to the CHANGELOG.md file', process.cwd() + '/CHANGELOG.md')
   .argument('[url]', 'URL used for linking to compare links and tags.')
   .argument('[footer]', 'Additional text to be displayed at the bottom of the changelog.', '')

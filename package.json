@@ -5,7 +5,7 @@
   "main": "main.mjs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "postversion": "node main.mjs write CHANGELOG CHANGELOG.md && git add -A CHANGELOG.md && git commit --amend --no-edit"
+    "postversion": "node main.mjs write && git add -A CHANGELOG.md && git commit --amend --no-edit"
   },
   "repository": {
     "type": "git",
