@@ -1,9 +1,8 @@
-import shell from "shelljs";
-import {Changelog, Release} from "keep-a-changelog";
-
+import shell from 'shelljs'
+import { Changelog, Release } from 'keep-a-changelog'
 
 const getFirstCommit = () => {
-  let {stdout: firstCommit} = shell
+  let { stdout: firstCommit } = shell
     .exec('git rev-list --max-parents=0 HEAD', {
       silent: true
     })
@@ -13,7 +12,7 @@ const getFirstCommit = () => {
 }
 
 const getTagDates = () => {
-  const {stdout: tagsString} = shell
+  const { stdout: tagsString } = shell
     .exec('git for-each-ref --sort=v:refname --format "%(creatordate:iso)" refs/tags', {
       silent: true
     })
@@ -21,7 +20,7 @@ const getTagDates = () => {
 }
 
 const getTags = () => {
-  const {stdout: tagsString} = shell
+  const { stdout: tagsString } = shell
     .exec('git for-each-ref --sort=v:refname --format "%(refname:strip=2)" refs/tags', {
       silent: true
     })
@@ -29,7 +28,7 @@ const getTags = () => {
 }
 
 const getCommits = branch => {
-  const {stdout: commits} = shell
+  const { stdout: commits } = shell
     .exec(`git --no-pager log --pretty='@commitchange@%n%B%-C()%n' ${branch}`, {
       silent: true
     })
@@ -95,7 +94,7 @@ const addTagToChangelog = (changelog, tag) => {
   )
 }
 
-const addUnreleasedToChangelog = (changelog) => {
+const createUnreleasedRelease = () => {
   const tags = getTags().reverse()
   const firstCommit = getFirstCommit()
   const unreleased = new Release()
@@ -103,32 +102,38 @@ const addUnreleasedToChangelog = (changelog) => {
   const branch = `${latestTag}..HEAD`
   const commits = getCommits(branch)
 
-  appendReleaseFromCommits(unreleased, commits);
+  appendReleaseFromCommits(unreleased, commits)
+  return unreleased
+}
+
+const addUnreleasedToChangelog = (changelog) => {
+  const unreleased = createUnreleasedRelease()
   changelog.addRelease(
     unreleased
   )
-};
+}
 
 const generateFullChangelog = (title) => {
   const changelog = new Changelog(title)
   changelog.url = 'https://code.anexia.com/am/netcup/netcup.de'
   changelog.footer = 'Please refer to the Git history for older changes.'
 
-  const firstCommit = getFirstCommit()
   const tags = getTags().reverse()
 
   tags.forEach((tag) => {
     addTagToChangelog(changelog, tag)
   })
 
-  addUnreleasedToChangelog(changelog);
+  addUnreleasedToChangelog(changelog)
   return changelog
 }
 export {
   generateFullChangelog,
+  createUnreleasedRelease,
+  addUnreleasedToChangelog,
   getFirstCommit,
   addTagToChangelog,
   appendReleaseFromCommits,
   getTagDates,
   getTags
-};
+}
