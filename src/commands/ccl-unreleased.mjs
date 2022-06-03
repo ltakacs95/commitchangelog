@@ -1,5 +1,8 @@
 import { Command } from 'commander'
-import { createUnreleasedRelease, getReleaseChangesCount } from '../lib/functions.mjs'
+import {
+  createUnreleasedRelease,
+  getReleaseChangesCount
+} from '../lib/functions.mjs'
 
 const program = new Command()
 

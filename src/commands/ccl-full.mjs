@@ -5,7 +5,11 @@ const program = new Command()
 program
   .argument('[title]', 'The title on top of the CHANGELOG.', 'CHANGELOG')
   .argument('[url]', 'URL used for linking to compare links and tags.', '')
-  .argument('[footer]', 'Additional text to be displayed at the bottom of the changelog.', '')
+  .argument(
+    '[footer]',
+    'Additional text to be displayed at the bottom of the changelog.',
+    ''
+  )
 
 program.exitOverride((err) => {
   if (err.code === 'commander.missingArgument') {
@@ -15,6 +19,10 @@ program.exitOverride((err) => {
   process.exit(err.exitCode)
 })
 program.parse(process.argv)
-const changelog = generateFullChangelog(program.processedArgs[0], program.processedArgs[1], program.processedArgs[2])
+const changelog = generateFullChangelog(
+  program.processedArgs[0],
+  program.processedArgs[1],
+  program.processedArgs[2]
+)
 
 console.log(changelog.toString())

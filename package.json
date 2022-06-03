@@ -5,7 +5,8 @@
   "main": "main.mjs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "postversion": "node main.mjs write && git add -A CHANGELOG.md && git commit --amend --no-edit"
+    "postversion": "node main.mjs write && git add -A CHANGELOG.md && git commit --amend --no-edit",
+    "lint": "npx prettier --write . && npx standard --fix"
   },
   "repository": {
     "type": "git",
@@ -14,6 +15,7 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "prettier": "prettier-config-standard",
   "bugs": {
     "url": "https://github.com/ltakacs95/commitchangelog/issues"
   },
@@ -22,5 +24,9 @@
     "commander": "^9.3.0",
     "keep-a-changelog": "^2.1.0",
     "shelljs": "^0.8.5"
+  },
+  "devDependencies": {
+    "prettier-config-standard": "^5.0.0",
+    "standard": "^17.0.0"
   }
 }
