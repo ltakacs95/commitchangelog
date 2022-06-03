@@ -95,6 +95,20 @@ const addTagToChangelog = (changelog, tag) => {
   )
 }
 
+const addUnreleasedToChangelog = (changelog) => {
+  const tags = getTags().reverse()
+  const firstCommit = getFirstCommit()
+  const unreleased = new Release()
+  const latestTag = tags[0] || firstCommit
+  const branch = `${latestTag}..HEAD`
+  const commits = getCommits(branch)
+
+  appendReleaseFromCommits(unreleased, commits);
+  changelog.addRelease(
+    unreleased
+  )
+};
+
 const generateFullChangelog = (title) => {
   const changelog = new Changelog(title)
   changelog.url = 'https://code.anexia.com/am/netcup/netcup.de'
@@ -107,14 +121,7 @@ const generateFullChangelog = (title) => {
     addTagToChangelog(changelog, tag)
   })
 
-  const unreleased = new Release()
-  const latestTag = tags[0] || firstCommit
-  const branch = `${latestTag}..HEAD`
-  const commits = getCommits(branch)
-  appendReleaseFromCommits(unreleased, commits)
-  changelog.addRelease(
-    unreleased
-  )
+  addUnreleasedToChangelog(changelog);
   return changelog
 }
 export {
