@@ -23,5 +23,10 @@ program
     'Display markdown from the unreleased changelog entries'
   )
   .command('tag', 'Display markdown a specific tag')
+  .command('compare', 'Display markdown of the changes between git revisions')
+  .command(
+    'compare-head',
+    'Display markdown of the changes between HEAD and a chosen git revision/branch/tag'
+  )
 
 program.parse(process.argv)

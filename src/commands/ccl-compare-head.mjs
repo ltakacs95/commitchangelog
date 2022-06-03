@@ -1,9 +1,15 @@
 import { Command } from 'commander'
-import { generateChangelogForTag } from '../lib/functions.mjs'
+import {
+  createChangelog,
+  createTemporaryChangeList
+} from '../lib/functions.mjs'
 
 const program = new Command()
 program
-  .argument('<tag>', 'The tag to display the changes for')
+  .argument(
+    '<comparedBranch>',
+    'The other branch/tag/revision to compare HEAD to'
+  )
   .argument('[title]', 'Path to the CHANGELOG.md file', 'CHANGELOG')
   .argument('[url]', 'URL used for linking to compare links and tags.', '')
   .argument(
@@ -19,10 +25,14 @@ program.exitOverride((err) => {
   process.exit(err.exitCode)
 })
 program.parse(process.argv)
-const changelog = generateChangelogForTag(
-  program.processedArgs[0],
-  program.processedArgs[1],
+
+const branch = `${program.processedArgs[0]}..HEAD`
+const changelog = createChangelog(
   program.processedArgs[2],
-  program.processedArgs[3]
+  program.processedArgs[3],
+  program.processedArgs[4]
 )
-console.log(changelog.toString())
+const changeList = createTemporaryChangeList(branch)
+
+changelog.addRelease(changeList)
+console.log(changelog.toString().replace('## Unreleased', '## Changes'))

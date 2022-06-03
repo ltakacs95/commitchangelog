@@ -89,11 +89,7 @@ const addTagToChangelog = (changelog, tag) => {
     branch = `${fromTag}..${tag}`
   }
 
-  // console.log({branch, targetTagIndex})
   const commits = getCommits(branch)
-
-  // console.log({tag,commits})
-
   const release = new Release(
     tag.replace(/^v/, ''),
     getTagDates()[targetTagIndex]
@@ -101,6 +97,14 @@ const addTagToChangelog = (changelog, tag) => {
   appendReleaseFromCommits(release, commits)
 
   changelog.addRelease(release)
+}
+
+const createTemporaryChangeList = (branch) => {
+  const release = new Release()
+  const commits = getCommits(branch)
+
+  appendReleaseFromCommits(release, commits)
+  return release
 }
 
 const createUnreleasedRelease = () => {
@@ -128,8 +132,9 @@ const addUnreleasedToChangelog = (changelog) => {
   changelog.addRelease(unreleased)
 }
 
-function createChangelog (title, url = '', footer = '') {
+const createChangelog = (title, url = '', footer = '') => {
   const changelog = new Changelog(title)
+
   if (url) {
     changelog.url = url
   }
@@ -174,5 +179,7 @@ export {
   getTagDates,
   getTags,
   getReleaseChangesCount,
-  generateChangelogForTag
+  generateChangelogForTag,
+  createTemporaryChangeList,
+  createChangelog
 }
