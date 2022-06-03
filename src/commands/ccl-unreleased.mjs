@@ -1,5 +1,5 @@
 import { Command } from 'commander'
-import { createUnreleasedRelease } from '../lib/functions.mjs'
+import { createUnreleasedRelease, getReleaseChangesCount } from '../lib/functions.mjs'
 
 const program = new Command()
 
@@ -12,4 +12,8 @@ program.exitOverride((err) => {
 })
 program.parse(process.argv)
 const unreleased = createUnreleasedRelease()
+if (!getReleaseChangesCount(unreleased)) {
+  process.exit(0)
+}
+
 console.log(unreleased.toString())

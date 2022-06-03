@@ -106,8 +106,15 @@ const createUnreleasedRelease = () => {
   return unreleased
 }
 
+const getReleaseChangesCount = unreleased => Array.from(unreleased.changes.values()).flat().length
+
 const addUnreleasedToChangelog = (changelog) => {
   const unreleased = createUnreleasedRelease()
+  const numberOfChanges = getReleaseChangesCount(unreleased)
+  if (!numberOfChanges) {
+    return
+  }
+
   changelog.addRelease(
     unreleased
   )
@@ -144,5 +151,5 @@ export {
   addTagToChangelog,
   appendReleaseFromCommits,
   getTagDates,
-  getTags
+  getTags, getReleaseChangesCount
 }
