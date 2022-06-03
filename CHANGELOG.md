@@ -5,7 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## Unreleased
+## 0.4.0 - 2022-06-03
+### Added
+- `compare` command
+- `compare-head` command
+- `tag` command
+
+### Changed
+- Changelog title is optional
+- `unreleased` command returns null if there are no changes to display
+- In the full changelog output the *Unreleased* block is hidden, if there are no changes to display
 
 ## 0.3.0 - 2022-06-03
 ### Added
