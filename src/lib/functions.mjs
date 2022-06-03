@@ -113,10 +113,19 @@ const addUnreleasedToChangelog = (changelog) => {
   )
 }
 
-const generateFullChangelog = (title) => {
+function createChangelog (title, url = '', footer = '') {
   const changelog = new Changelog(title)
-  changelog.url = 'https://code.anexia.com/am/netcup/netcup.de'
-  changelog.footer = 'Please refer to the Git history for older changes.'
+  if (url) {
+    changelog.url = url
+  }
+  if (footer) {
+    changelog.footer = footer
+  }
+  return changelog
+}
+
+const generateFullChangelog = (title, url = '', footer = '') => {
+  const changelog = createChangelog(title, url, footer)
 
   const tags = getTags().reverse()
 
