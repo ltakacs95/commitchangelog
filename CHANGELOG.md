@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.4.1] - 2022-06-03
+### Changed
+- Switched license to MIT
+
+### Fixed
+- Bug where `tag` command would output complete changelog
+
 ## [0.4.0] - 2022-06-03
 ### Added
 - `compare` command
@@ -36,10 +43,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Removed
 - gitlog dependency
 
-## [0.1.0] - 2022-06-03
+## [0.1.0] - 2022-06-04
 ### Added
 - initial development environment
 
+[0.4.1]: https://github.com/ltakacs95/commitchangelog/compare/v0.4.0...v0.4.1
 [0.4.0]: https://github.com/ltakacs95/commitchangelog/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/ltakacs95/commitchangelog/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/ltakacs95/commitchangelog/compare/v0.1.0...v0.2.0
