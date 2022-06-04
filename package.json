@@ -1,5 +1,5 @@
 {
-  "name": "commitchangelog",
+  "name": "@canthisbeautomated/commitchangelog",
   "version": "0.4.3",
   "description": "Manage your changelogs in your commits and generate a shorter, friendlier CHANGELOG",
   "bin": "main.mjs",
