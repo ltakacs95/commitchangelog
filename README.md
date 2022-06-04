@@ -23,7 +23,7 @@ removed: gitlog dependency
 
 ### CLI
 ```shell
-Usage: ccl [options] [command]
+Usage: gitccl [options] [command]
 
 Options:
   -V, --version   output the version number
@@ -54,7 +54,7 @@ npx gitccl
 With [npm](https://npmjs.org/) installed, run
 
 ```
-$ npm install --save-dev commitchangelog
+$ npm install --save-dev @canthisbeautomated/commitchangelog
 ```
 
 ## Acknowledgments

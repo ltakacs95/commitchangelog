@@ -22,10 +22,10 @@ program
     'unreleased',
     'Display markdown from the unreleased changelog entries'
   )
-  .command('tag', 'List changes as markdown for a specific tag')
-  .command('compare', 'Display markdown of the changes between git revisions')
+  .command('tag <tag>', 'List changes as markdown for a specific tag')
+  .command('compare <compare> <compareTo>', 'Display markdown of the changes between git revisions')
   .command(
-    'compare-head',
+    'compare-head <compareTo>',
     'Display markdown of the changes between HEAD and a chosen git revision/branch/tag'
   )
 
