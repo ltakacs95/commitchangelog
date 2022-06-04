@@ -12,11 +12,11 @@ program
   .executableDir('./src/commands')
   .command(
     'full',
-    'display a full Markdown with all releases ( inkl. Unreleased )'
+    'display a full Markdown with all releases (inkl. Unreleased)'
   )
   .command(
     'write',
-    'write the full Markdown with all releases ( inkl. Unreleased ) into a file'
+    'write the full Markdown with all releases (inkl. Unreleased) into a file'
   )
   .command(
     'unreleased',
