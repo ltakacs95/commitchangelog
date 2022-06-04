@@ -2,7 +2,7 @@
 
 > Manage your changelogs in your commits and generate a shorter, friendlier CHANGELOG
 
-Having a CHANGELOG.md file ist all fine, but often merge conflicts arise, when including Unreleased changes. 
+Having a CHANGELOG.md file ist all fine, but often merge conflicts arise, when including Unreleased changes.
 This CLI-Tool should solve that, and provide ways to add formatted, human readable changes for example in merge requests or release notes.
 
 ## Usage
@@ -33,7 +33,7 @@ Commands:
 With [npm](https://npmjs.org/) installed, run
 
 ```
-$ npm install --save-dev commitchangelog 
+$ npm install --save-dev commitchangelog
 ```
 
 ## Acknowledgments
@@ -44,10 +44,10 @@ commitchangelog was heavily inspired by [git-cl](https://github.com/uptech/git-c
 
 ## Changelog
 
-The changelog of this CLI Tool may serve as an example: 
+The changelog of this CLI Tool may serve as an example:
 
 See [CHANGELOG.md](https://github.com/ltakacs95/commitchangelog/blob/main/CHANGELOG.md).
+
 ## License
 
 MIT
-

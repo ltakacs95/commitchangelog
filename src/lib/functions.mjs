@@ -1,5 +1,5 @@
-import shell from 'shelljs'
 import { Changelog, Release } from 'keep-a-changelog'
+import shell from 'shelljs'
 
 const getFirstCommit = () => {
   let { stdout: firstCommit } = shell.exec(
@@ -74,31 +74,6 @@ const appendReleaseFromCommits = (release, commits) => {
   return release
 }
 
-const addTagToChangelog = (changelog, tag) => {
-  const tags = getTags().reverse()
-  const targetTagIndex = tags.indexOf(tag)
-
-  let branch
-  let fromTag
-  if (targetTagIndex >= 0 && targetTagIndex < tags.length - 1) {
-    fromTag = tags[targetTagIndex + 1]
-    branch = `${fromTag}..${tag}`
-  }
-  if (targetTagIndex === tags.length - 1) {
-    fromTag = getFirstCommit()
-    branch = `${fromTag}..${tag}`
-  }
-
-  const commits = getCommits(branch)
-  const release = new Release(
-    tag.replace(/^v/, ''),
-    getTagDates()[targetTagIndex]
-  )
-  appendReleaseFromCommits(release, commits)
-
-  changelog.addRelease(release)
-}
-
 const createTemporaryChangeList = (branch) => {
   const release = new Release()
   const commits = getCommits(branch)
@@ -144,18 +119,35 @@ const createChangelog = (title, url = '', footer = '') => {
   return changelog
 }
 
-const generateChangelogForTag = (tag, title, url, footer) => {
-  const tags = getTags()
+const generateReleaseForTag = (tag) => {
+  const tags = getTags().reverse()
 
   if (!tags.includes(tag)) {
     console.log(`${tag} doest exists. Try one of these: ${tags.join(', ')}`)
     process.exit(1)
   }
 
-  const changelog = createChangelog(title, url, footer)
-  addTagToChangelog(changelog, tag)
+  const targetTagIndex = tags.indexOf(tag)
 
-  return changelog
+  let branch
+  let fromTag
+  if (targetTagIndex >= 0 && targetTagIndex < tags.length - 1) {
+    fromTag = tags[targetTagIndex + 1]
+    branch = `${fromTag}..${tag}`
+  }
+  if (targetTagIndex === tags.length - 1) {
+    fromTag = getFirstCommit()
+    branch = `${fromTag}..${tag}`
+  }
+
+  const commits = getCommits(branch)
+  const release = new Release(
+    tag.replace(/^v/, ''),
+    getTagDates()[targetTagIndex]
+  )
+  appendReleaseFromCommits(release, commits)
+
+  return release
 }
 const generateFullChangelog = (title, url = '', footer = '') => {
   const changelog = createChangelog(title, url, footer)
@@ -163,7 +155,28 @@ const generateFullChangelog = (title, url = '', footer = '') => {
   const tags = getTags().reverse()
 
   tags.forEach((tag) => {
-    addTagToChangelog(changelog, tag)
+    const tags1 = getTags().reverse()
+    const targetTagIndex = tags1.indexOf(tag)
+
+    let branch
+    let fromTag
+    if (targetTagIndex >= 0 && targetTagIndex < tags1.length - 1) {
+      fromTag = tags1[targetTagIndex + 1]
+      branch = `${fromTag}..${tag}`
+    }
+    if (targetTagIndex === tags1.length - 1) {
+      fromTag = getFirstCommit()
+      branch = `${fromTag}..${tag}`
+    }
+
+    const commits = getCommits(branch)
+    const release = new Release(
+      tag.replace(/^v/, ''),
+      getTagDates()[targetTagIndex]
+    )
+    appendReleaseFromCommits(release, commits)
+
+    changelog.addRelease(release)
   })
 
   addUnreleasedToChangelog(changelog)
@@ -174,12 +187,11 @@ export {
   createUnreleasedRelease,
   addUnreleasedToChangelog,
   getFirstCommit,
-  addTagToChangelog,
   appendReleaseFromCommits,
   getTagDates,
   getTags,
   getReleaseChangesCount,
-  generateChangelogForTag,
+  generateReleaseForTag,
   createTemporaryChangeList,
   createChangelog
 }
