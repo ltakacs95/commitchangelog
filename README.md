@@ -39,6 +39,12 @@ Commands:
   help [command]  display help for command
 ```
 
+### npx
+```shell
+# Displays help message as seen above
+npx gitccl
+```
+
 ## Requirements
 
 - `git`

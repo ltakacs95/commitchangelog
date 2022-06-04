@@ -7,7 +7,7 @@ const version = JSON.parse(
   await readFile(new URL('./package.json', import.meta.url))
 ).version
 program
-  .name('ccl')
+  .name('gitccl')
   .version(version)
   .executableDir('./src/commands')
   .command(
