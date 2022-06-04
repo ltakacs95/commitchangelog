@@ -143,7 +143,7 @@ const generateReleaseForTag = (tag) => {
   const commits = getCommits(branch)
   const release = new Release(
     tag.replace(/^v/, ''),
-    getTagDates()[targetTagIndex]
+    getTagDates().reverse()[targetTagIndex]
   )
   appendReleaseFromCommits(release, commits)
 
@@ -155,8 +155,8 @@ const generateFullChangelog = (title, url = '', footer = '') => {
   const tags = getTags().reverse()
 
   tags.forEach((tag) => {
-    const tags1 = getTags().reverse()
-    const targetTagIndex = tags1.indexOf(tag)
+    const tags = getTags().reverse()
+    const targetTagIndex = tags.indexOf(tag)
 
     let branch
     let fromTag
@@ -172,7 +172,7 @@ const generateFullChangelog = (title, url = '', footer = '') => {
     const commits = getCommits(branch)
     const release = new Release(
       tag.replace(/^v/, ''),
-      getTagDates()[targetTagIndex]
+      getTagDates().reverse()[targetTagIndex]
     )
     appendReleaseFromCommits(release, commits)
 
