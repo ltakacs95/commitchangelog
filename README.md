@@ -6,7 +6,22 @@ Having a CHANGELOG.md file ist all fine, but often merge conflicts arise, when i
 This CLI-Tool should solve that, and provide ways to add formatted, human readable changes for example in merge requests or release notes.
 
 ## Usage
+### Collecting changes
 
+- The format is based on [Keep a Changelog](http://keepachangelog.com/).
+- The changes are embedded in your commit bodies using the keywords from  [Keep a Changelog](http://keepachangelog.com/).
+- Not all commits have to have a `[changelog]` block. If there is no relevant change in the commit, is may be left out.
+
+**Example**:
+```text
+refactor: es6
+
+[changelog]
+changed: refactored to es6
+removed: gitlog dependency
+```
+
+### CLI
 ```shell
 Usage: ccl [options] [command]
 
@@ -38,7 +53,6 @@ $ npm install --save-dev commitchangelog
 
 ## Acknowledgments
 
-The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 commitchangelog was heavily inspired by [git-cl](https://github.com/uptech/git-cl).
 
