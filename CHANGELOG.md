@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.5.2] - 2022-06-04
+### Changed
+- Improved help text and usage.
+
 ## [0.5.1] - 2022-06-04
 ### Added
 - npx usage variation to README
@@ -74,6 +78,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - initial development environment
 
+[0.5.2]: https://github.com/ltakacs95/commitchangelog/compare/v0.5.1...v0.5.2
 [0.5.1]: https://github.com/ltakacs95/commitchangelog/compare/v0.5.0...v0.5.1
 [0.5.0]: https://github.com/ltakacs95/commitchangelog/compare/v0.4.4...v0.5.0
 [0.4.4]: https://github.com/ltakacs95/commitchangelog/compare/v0.4.3...v0.4.4
