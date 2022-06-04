@@ -160,11 +160,11 @@ const generateFullChangelog = (title, url = '', footer = '') => {
 
     let branch
     let fromTag
-    if (targetTagIndex >= 0 && targetTagIndex < tags1.length - 1) {
-      fromTag = tags1[targetTagIndex + 1]
+    if (targetTagIndex >= 0 && targetTagIndex < tags.length - 1) {
+      fromTag = tags[targetTagIndex + 1]
       branch = `${fromTag}..${tag}`
     }
-    if (targetTagIndex === tags1.length - 1) {
+    if (targetTagIndex === tags.length - 1) {
       fromTag = getFirstCommit()
       branch = `${fromTag}..${tag}`
     }
